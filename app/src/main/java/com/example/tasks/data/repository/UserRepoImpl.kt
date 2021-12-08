@@ -42,7 +42,13 @@ class UserRepoImpl @Inject constructor(
 
             val result = tasksApi.login(user)
             if (result.success) {
-                sessionManager.updateSession(result.message, user.name ?: "", user.email)
+                result.user?.let {
+                    sessionManager.updateSession(
+                        token = result.message,
+                        name = it.name!!,
+                        email = it.email
+                    )
+                }
                 Result.Success("Logged In Successfully!")
             } else {
                 Result.Error(result.message)
