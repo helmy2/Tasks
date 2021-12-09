@@ -22,8 +22,8 @@ class UserRepoImpl @Inject constructor(
 
             val result = tasksApi.createAccount(user)
             if (result.success) {
-                sessionManager.updateSession(result.message, user.name ?: "", user.email)
-                Result.Success("User Created Successfully!")
+                sessionManager.updateSession(result.message,user.name ?:"",user.email)
+                Result.Success("Logged In Successfully!")
             } else {
                 Result.Error(result.message)
             }
@@ -31,7 +31,6 @@ class UserRepoImpl @Inject constructor(
             e.printStackTrace()
             Result.Error(e.message ?: "Some Problem Occurred!")
         }
-
     }
 
     override suspend fun login(user: User): Result<String> {

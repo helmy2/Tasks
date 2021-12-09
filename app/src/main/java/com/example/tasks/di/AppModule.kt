@@ -2,6 +2,7 @@ package com.example.tasks.di
 
 import android.content.Context
 import com.example.tasks.data.remote.TasksApi
+import com.example.tasks.data.remote.models.User
 import com.example.tasks.data.repository.UserRepoImpl
 import com.example.tasks.domain.repository.UserRepo
 import com.example.tasks.domain.util.SessionManager
@@ -63,5 +64,4 @@ object AppModule {
     @Provides
     fun provideUserRepo(tasksApi: TasksApi, sessionManager: SessionManager): UserRepo =
         UserRepoImpl(tasksApi, sessionManager)
-
 }

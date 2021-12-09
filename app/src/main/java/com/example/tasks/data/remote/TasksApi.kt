@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface TasksApi {
 
     @Headers("Content-Type: application/json")
-    @POST("/users/register")
+    @POST("users/register")
     suspend fun createAccount(
         @Body user: User
     ): Response

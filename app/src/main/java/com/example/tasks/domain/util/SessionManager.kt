@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.first
 
 
 class SessionManager(val context: Context) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session_manager")
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("session_manager")
 
     suspend fun updateSession(token: String, name: String, email: String) {
         val jwtTokenKey = stringPreferencesKey(JWT_TOKEN_KEY)

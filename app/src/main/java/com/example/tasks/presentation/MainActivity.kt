@@ -5,19 +5,36 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import com.example.tasks.presentation.account.AccountScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tasks.presentation.login.LoginScreen
+import com.example.tasks.presentation.register.RegisterScreen
 import com.example.tasks.presentation.theme.TasksTheme
+import com.example.tasks.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TasksTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    AccountScreen()
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.LoginScreen.route
+                    ){
+                        composable(Screen.LoginScreen.route){
+                            LoginScreen(navController)
+                        }
+                        composable(Screen.RegisterScreen.route){
+                            RegisterScreen(navController)
+                        }
+                    }
                 }
             }
         }

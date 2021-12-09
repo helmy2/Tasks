@@ -1,6 +1,6 @@
-package com.example.tasks.presentation.account.login
+package com.example.tasks.presentation.register
 
-data class LoginState(
+data class RegisterState(
     val error: String? = null,
     val logged: Boolean = false,
     val progress: Boolean = false,
