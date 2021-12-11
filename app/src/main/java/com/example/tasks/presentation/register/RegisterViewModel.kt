@@ -67,6 +67,9 @@ class RegisterViewModel @Inject constructor(
             is RegisterEvent.RequestLogin -> {
                 event.navController.navigate(Screen.LoginScreen.route)
             }
+            is RegisterEvent.RequestBack -> {
+                event.navController.navigate(Screen.LoginScreen.route)
+            }
         }
     }
 

@@ -3,7 +3,9 @@ package com.example.tasks.di
 import android.content.Context
 import com.example.tasks.data.remote.TasksApi
 import com.example.tasks.data.remote.models.User
+import com.example.tasks.data.repository.TaskRepoImpl
 import com.example.tasks.data.repository.UserRepoImpl
+import com.example.tasks.domain.repository.TaskRepo
 import com.example.tasks.domain.repository.UserRepo
 import com.example.tasks.domain.util.SessionManager
 import com.example.tasks.util.Constants.BASE_URL
@@ -46,7 +48,7 @@ object AppModule {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
-        val gson  = GsonBuilder().setLenient().create()
+        val gson = GsonBuilder().setLenient().create()
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -64,4 +66,9 @@ object AppModule {
     @Provides
     fun provideUserRepo(tasksApi: TasksApi, sessionManager: SessionManager): UserRepo =
         UserRepoImpl(tasksApi, sessionManager)
+
+    @Singleton
+    @Provides
+    fun provideTaskRepo(tasksApi: TasksApi, sessionManager: SessionManager): TaskRepo =
+        TaskRepoImpl(tasksApi, sessionManager)
 }

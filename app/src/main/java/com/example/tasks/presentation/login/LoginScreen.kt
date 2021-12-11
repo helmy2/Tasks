@@ -1,9 +1,7 @@
 package com.example.tasks.presentation.login
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,6 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.tasks.presentation.login.components.LoginField
 import com.example.tasks.presentation.login.components.LogoutField
+import com.example.tasks.presentation.util.BackButton
 
 @Composable
 fun LoginScreen(
@@ -21,6 +20,9 @@ fun LoginScreen(
 ) {
     val loginState = viewModel.loginState.value
     val context = LocalContext.current
+
+    Box {
+        BackButton { viewModel.onEvent(LoginEvent.RequestBack(navController)) }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,6 +34,7 @@ fun LoginScreen(
             if (loginState.progress) {
                 CircularProgressIndicator()
             } else {
+
                 if (loginState.logged)
                     LogoutField(
                         onLogoutClick = {
@@ -44,10 +47,11 @@ fun LoginScreen(
                             viewModel.onEvent(LoginEvent.RequestLogin(email, password))
                         },
                         onRegisterClick = {
-                           viewModel.onEvent(LoginEvent.RequestRegister(navController))
-                        }
+                            viewModel.onEvent(LoginEvent.RequestRegister(navController))
+                        },
                     )
             }
+        }
     }
 }
 

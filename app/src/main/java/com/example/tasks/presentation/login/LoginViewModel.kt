@@ -39,6 +39,10 @@ class LoginViewModel @Inject constructor(
             is LoginEvent.RequestRegister -> {
                 event.navController.navigate(Screen.RegisterScreen.route)
             }
+            is LoginEvent.RequestBack -> {
+                event.navController.navigate(Screen.HomeScreen.route)
+            }
+
         }
     }
 
