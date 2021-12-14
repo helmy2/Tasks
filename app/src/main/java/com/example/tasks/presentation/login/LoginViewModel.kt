@@ -4,16 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasks.data.remote.models.User
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.tasks.domain.model.User
 import com.example.tasks.data.util.Result
 import com.example.tasks.domain.repository.UserRepo
 import com.example.tasks.presentation.util.Screen
 import com.example.tasks.presentation.util.isEmailValid
-import com.example.tasks.util.Constants.EMAIL_REGEX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.RequestLogin -> {
-                loginUser(email = event.email, password = event.password)
+                loginUser(event.email, event.password, event.navController)
             }
             is LoginEvent.RequestSignOut -> {
                 logout()
@@ -42,13 +42,13 @@ class LoginViewModel @Inject constructor(
             is LoginEvent.RequestBack -> {
                 event.navController.navigate(Screen.HomeScreen.route)
             }
-
         }
     }
 
     private fun loginUser(
         email: String,
-        password: String
+        password: String,
+        navController: NavHostController
     ) = viewModelScope.launch {
 
         if (email.isEmpty()) {
@@ -67,19 +67,23 @@ class LoginViewModel @Inject constructor(
         _loginState.value = LoginState(progress = true)
         delay(500L)
         val newUser = User(email = email, password = password)
-        val result = repo.login(newUser)
-        _loginState.value = LoginState(
-            error = result.errorMessage,
-            logged = result is Result.Success,
-            progress = false,
-        )
 
+        val result = repo.login(newUser)
+        if (result is Result.Success) {
+            onEvent(LoginEvent.RequestBack(navController))
+        } else
+            _loginState.value = LoginState(error = result.errorMessage)
     }
 
     private fun getCurrentUser() = viewModelScope.launch {
         _loginState.value = LoginState(progress = true)
         val result = repo.getUser()
-        _loginState.value = LoginState(logged = result is Result.Success)
+        if (result is Result.Success)
+            _loginState.value =
+                LoginState(logged = true, userName = result.data!!.name!!)
+        else
+            _loginState.value =
+                LoginState()
     }
 
     private fun logout() = viewModelScope.launch {
@@ -89,6 +93,4 @@ class LoginViewModel @Inject constructor(
         if (result is Result.Success)
             _loginState.value = LoginState()
     }
-
-
 }

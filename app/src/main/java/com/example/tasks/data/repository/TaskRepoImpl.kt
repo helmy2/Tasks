@@ -1,7 +1,7 @@
 package com.example.tasks.data.repository
 
 import com.example.tasks.data.remote.TasksApi
-import com.example.tasks.data.remote.models.TaskList
+import com.example.tasks.domain.model.TaskList
 import com.example.tasks.data.util.Result
 import com.example.tasks.data.util.isNetworkConnected
 import com.example.tasks.domain.model.Task

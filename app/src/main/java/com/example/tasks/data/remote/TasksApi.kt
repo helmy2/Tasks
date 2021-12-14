@@ -1,8 +1,8 @@
 package com.example.tasks.data.remote
 
 import com.example.tasks.data.remote.models.Response
-import com.example.tasks.data.remote.models.TaskList
-import com.example.tasks.data.remote.models.User
+import com.example.tasks.domain.model.TaskList
+import com.example.tasks.domain.model.User
 import com.example.tasks.data.remote.models.UserResponse
 import com.example.tasks.domain.model.Task
 import retrofit2.http.*

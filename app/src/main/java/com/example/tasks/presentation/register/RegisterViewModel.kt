@@ -4,17 +4,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasks.data.remote.models.User
+import com.example.tasks.domain.model.User
 import com.example.tasks.data.util.Result
 import com.example.tasks.domain.repository.UserRepo
-import com.example.tasks.presentation.login.LoginState
 import com.example.tasks.presentation.util.Screen
 import com.example.tasks.presentation.util.isEmailValid
-import com.example.tasks.util.Constants.EMAIL_REGEX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel

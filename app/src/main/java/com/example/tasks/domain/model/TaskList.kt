@@ -1,6 +1,4 @@
-package com.example.tasks.data.remote.models
-
-import com.example.tasks.domain.model.Task
+package com.example.tasks.domain.model
 
 data class TaskList(
     val id: Int?,

@@ -1,6 +1,6 @@
 package com.example.tasks.domain.repository
 
-import com.example.tasks.data.remote.models.TaskList
+import com.example.tasks.domain.model.TaskList
 import com.example.tasks.data.util.Result
 import com.example.tasks.domain.model.Task
 

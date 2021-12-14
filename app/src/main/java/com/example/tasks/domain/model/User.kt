@@ -1,4 +1,4 @@
-package com.example.tasks.data.remote.models
+package com.example.tasks.domain.model
 
 data class User(
     val name:String? = null,

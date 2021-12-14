@@ -1,30 +1,56 @@
 package com.example.tasks.presentation.home.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.example.tasks.R
+import com.example.tasks.domain.model.TaskList
+import com.example.tasks.domain.model.Task
 
 @Composable
 fun HomeField(
-    onItemClicked: () -> Unit
+    name: String,
+    list: List<TaskList>,
+    onProfileClicked: () -> Unit,
+    onAddListClicked: () -> Unit
 ) {
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-
-    ModalDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            DrawerComponents(
-                "Olivia Mitchell",
-                "https://images.complex.com/complex/images/c_scale,f_auto,q_auto,w_1920/fl_lossy,pg_1/ok26lkxxcptihvwljzaw/girl-in-red?fimg-ssr-default",
-                scope,
-                drawerState,
-                onItemClicked = onItemClicked
-            )
-        },
-        content = {
-            HomeComponents("Olivia Mitchell",scope, drawerState)
+    val taskList: MutableList<Task> = mutableListOf()
+    list.forEach {
+        it.list?.let {
+            taskList += it
         }
-    )
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, end = 16.dp),
+        ) {
+            IconButton(onClick = onProfileClicked, modifier = Modifier.align(Alignment.TopEnd)) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_profile),
+                    contentDescription = "Profile Icon",
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 16.dp)
+        ) {
+            NameField(name)
+            CategoryList(list, onAddClicked = onAddListClicked)
+            TaskList(taskList.shuffled())
+        }
+    }
 }
+
+

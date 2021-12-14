@@ -1,28 +1,28 @@
 package com.example.tasks.presentation.home
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasks.data.remote.models.TaskList
+import com.example.tasks.domain.model.TaskList
+import com.example.tasks.data.util.Result
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.repository.TaskRepo
+import com.example.tasks.domain.repository.UserRepo
+import com.example.tasks.util.Constants.BASE_URL
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewMode @Inject constructor(
-    private val repo: TaskRepo
+class HomeViewModel @Inject constructor(
+    private val repo: TaskRepo,
+    private val userRepo: UserRepo,
 ) : ViewModel() {
 
     val data = mutableStateOf("started")
+    private val _homeState = mutableStateOf(HomeState())
+    val homeState: State<HomeState> = _homeState
 
     init {
 //        getAllLists()
@@ -34,22 +34,22 @@ class HomeViewMode @Inject constructor(
 //        updateList()
 //        deleteList()
 
-        viewModelScope.launch {
+        getAllLists()
 
-
-        }
     }
 
-
-//    private fun String.toDateLong(): Long {
-//        val locale = Locale.getDefault()
-//        val formatter = SimpleDateFormat.getDateTimeInstance()
-//        return formatter.format(this)
-//    }
-
-
-    fun getAllLists() = viewModelScope.launch {
-        data.value = repo.getAllLists().data.toString()
+    private fun getAllLists() = viewModelScope.launch {
+        _homeState.value = HomeState(progress = true)
+        val result = repo.getAllLists()
+        val userResult = userRepo.getUser()
+        if (result is Result.Success && userResult is Result.Success)
+            _homeState.value = HomeState(
+                list = result.data!!,
+                userName = userResult.data!!.name!!,
+                logged = true
+            )
+        else
+            _homeState.value = HomeState(error = result.errorMessage)
     }
 
     fun getTaskList(id: Int = 3) = viewModelScope.launch {
@@ -96,6 +96,7 @@ class HomeViewMode @Inject constructor(
             false,
             "First Task",
             "First Task description",
+            "Red",
             5000
         )
     ) = viewModelScope.launch {
@@ -109,6 +110,7 @@ class HomeViewMode @Inject constructor(
             false,
             "First Updated Task",
             "First Task description",
+            "Red",
             5000
         )
     ) = viewModelScope.launch {

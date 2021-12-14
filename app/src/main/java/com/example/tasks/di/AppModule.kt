@@ -2,7 +2,6 @@ package com.example.tasks.di
 
 import android.content.Context
 import com.example.tasks.data.remote.TasksApi
-import com.example.tasks.data.remote.models.User
 import com.example.tasks.data.repository.TaskRepoImpl
 import com.example.tasks.data.repository.UserRepoImpl
 import com.example.tasks.domain.repository.TaskRepo

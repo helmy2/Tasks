@@ -5,10 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.tasks.presentation.addList.AddListScreen
 import com.example.tasks.presentation.home.HomeScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.HomeScreen.route){
                             HomeScreen(navController)
+                        }
+                        composable(Screen.AddListScreen.route){
+                            AddListScreen(navController)
                         }
                     }
                 }

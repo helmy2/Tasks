@@ -34,17 +34,17 @@ fun LoginScreen(
             if (loginState.progress) {
                 CircularProgressIndicator()
             } else {
-
                 if (loginState.logged)
                     LogoutField(
                         onLogoutClick = {
                             viewModel.onEvent(LoginEvent.RequestSignOut)
-                        }
+                        },
+                        name = loginState.userName,
                     )
                 else
                     LoginField(
                         onLoginClick = { email, password ->
-                            viewModel.onEvent(LoginEvent.RequestLogin(email, password))
+                            viewModel.onEvent(LoginEvent.RequestLogin(email, password,navController))
                         },
                         onRegisterClick = {
                             viewModel.onEvent(LoginEvent.RequestRegister(navController))

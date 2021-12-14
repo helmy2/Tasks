@@ -10,6 +10,8 @@ object Constants {
 
     const val MINIMUM_PASSWORD_LENGTH = 4
 
-    const val EMAIL_REGEX = """^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"""
+    const val EMAIL_REGEX =
+        """^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"""
 
 }
+
