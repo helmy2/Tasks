@@ -21,7 +21,8 @@ fun CategoryItem(
     Card(
         modifier = Modifier.padding(top = 16.dp, end = 16.dp),
         shape = RoundedCornerShape(16.dp),
-        elevation = 5.dp
+        elevation = 0.dp,
+        backgroundColor = taskList.color.toColor().copy(.35f),
     ) {
         Column(
             modifier = Modifier

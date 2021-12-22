@@ -37,7 +37,10 @@ fun HomeScreen(
                 onAddListClicked = {
                     navController.navigate(Screen.AddListScreen.route)
                 }
-            )
+
+            ) {
+                navController.navigate(Screen.AddTaskScreen.route)
+            }
             else -> {
                 Text(text = "You aren't logged in", style = MaterialTheme.typography.h4)
                 Spacer(modifier = Modifier.height(16.dp))

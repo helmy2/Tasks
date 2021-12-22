@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tasks.presentation.addList.AddListScreen
+import com.example.tasks.presentation.addTask.AddTaskScreen
 import com.example.tasks.presentation.home.HomeScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
@@ -40,6 +41,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.AddListScreen.route){
                             AddListScreen(navController)
+                        }
+                        composable(Screen.AddTaskScreen.route){
+                            AddTaskScreen(navController)
                         }
                     }
                 }

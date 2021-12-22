@@ -56,18 +56,7 @@ class HomeViewModel @Inject constructor(
         data.value = repo.getTaskList(id).data.toString()
     }
 
-    fun createList(
-        list: TaskList = TaskList(
-            id = null,
-            title = "first list title",
-            description = "first description",
-            color = "RED",
-            date = 500,
-            list = null
-        )
-    ) = viewModelScope.launch {
-        data.value = repo.createList(list).data.toString()
-    }
+
 
     fun updateList(
         list: TaskList = TaskList(
@@ -89,19 +78,6 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    fun createTask(
-        task: Task = Task(
-            id = null,
-            listId = 3,
-            false,
-            "First Task",
-            "First Task description",
-            "Red",
-            5000
-        )
-    ) = viewModelScope.launch {
-        data.value = repo.createTask(task).data.toString()
-    }
 
     fun updateTask(
         task: Task = Task(

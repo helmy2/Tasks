@@ -4,15 +4,15 @@ import androidx.compose.ui.graphics.Color
 
 fun String.toColor(): Color {
     return when (this) {
-        ColorList.Blue.name -> ColorList.Blue.color
-        ColorList.Cyan.name -> ColorList.Cyan.color
-        ColorList.Magenta.name -> ColorList.Magenta.color
-        ColorList.Red.name -> ColorList.Red.color
-        ColorList.Gray.name -> ColorList.Gray.color
-        ColorList.Green.name -> ColorList.Green.color
-        ColorList.Yellow.name -> ColorList.Yellow.color
+        ListColor.Blue.name -> ListColor.Blue.color
+        ListColor.Cyan.name -> ListColor.Cyan.color
+        ListColor.Magenta.name -> ListColor.Magenta.color
+        ListColor.Red.name -> ListColor.Red.color
+        ListColor.Gray.name -> ListColor.Gray.color
+        ListColor.Green.name -> ListColor.Green.color
+        ListColor.Yellow.name -> ListColor.Yellow.color
         else -> {
-            ColorList.Magenta.color
+            ListColor.Magenta.color
         }
     }
 }
