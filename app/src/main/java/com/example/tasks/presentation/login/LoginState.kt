@@ -5,4 +5,5 @@ data class LoginState(
     val logged: Boolean = false,
     val progress: Boolean = false,
     val userName: String = "",
+    val userEmail: String = "",
 )

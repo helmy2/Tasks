@@ -1,4 +1,4 @@
-package com.example.tasks.util
+package com.example.tasks.domain.util
 
 object Constants {
 
@@ -6,7 +6,7 @@ object Constants {
     const val NAME_KEY = "NAME_KEY"
     const val EMAIL_KEY = "EMAIL_KEY"
 
-    const val BASE_URL = "http://192.168.1.6:8080/v1/"
+    const val BASE_URL = "http://192.168.1.7:8080/v1/"
 
     const val MINIMUM_PASSWORD_LENGTH = 4
 

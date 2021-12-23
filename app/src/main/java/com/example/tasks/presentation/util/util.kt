@@ -1,6 +1,6 @@
 package com.example.tasks.presentation.util
 
-import com.example.tasks.util.Constants
+import com.example.tasks.domain.util.Constants
 import java.util.regex.Pattern
 
 fun isEmailValid(email: String): Boolean {

@@ -80,7 +80,7 @@ class LoginViewModel @Inject constructor(
         val result = repo.getUser()
         if (result is Result.Success)
             _loginState.value =
-                LoginState(logged = true, userName = result.data!!.name!!)
+                LoginState(logged = true, userName = result.data!!.name!!, userEmail = result.data.email)
         else
             _loginState.value =
                 LoginState()

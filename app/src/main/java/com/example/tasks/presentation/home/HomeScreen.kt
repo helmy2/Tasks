@@ -31,16 +31,26 @@ fun HomeScreen(
             homeState.logged -> HomeField(
                 homeState.userName,
                 homeState.list,
-                onProfileClicked =  {
+                homeState.todayList,
+                onProfileClicked = {
                     navController.navigate(Screen.LoginScreen.route)
                 },
                 onAddListClicked = {
                     navController.navigate(Screen.AddListScreen.route)
+                },
+                onAddTaskClicked = {
+                    navController.navigate(Screen.AddTaskScreen.route)
+                },
+                onCheckTaskItemClick = {
+                    viewModel.updateTask(it.copy(done = !it.done))
+                },
+                onDeleteTaskItemClick = {
+                    viewModel.deleteTask(it)
+                },
+                onListItemClick = {
+                    navController.navigate(Screen.ListScreen.route + "/$it")
                 }
-
-            ) {
-                navController.navigate(Screen.AddTaskScreen.route)
-            }
+            )
             else -> {
                 Text(text = "You aren't logged in", style = MaterialTheme.typography.h4)
                 Spacer(modifier = Modifier.height(16.dp))

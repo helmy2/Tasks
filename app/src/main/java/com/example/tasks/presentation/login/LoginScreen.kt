@@ -40,6 +40,7 @@ fun LoginScreen(
                             viewModel.onEvent(LoginEvent.RequestSignOut)
                         },
                         name = loginState.userName,
+                        email = loginState.userEmail
                     )
                 else
                     LoginField(

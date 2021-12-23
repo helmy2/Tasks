@@ -8,7 +8,7 @@ import com.example.tasks.domain.model.TaskList
 import com.example.tasks.domain.repository.TaskRepo
 import com.example.tasks.presentation.util.ListColor
 import com.example.tasks.presentation.util.Screen
-import com.example.tasks.util.getCurrentDate
+import com.example.tasks.domain.util.getCurrentDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

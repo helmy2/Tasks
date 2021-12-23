@@ -11,6 +11,7 @@ interface TaskRepo {
     suspend fun deleteList(id: Int): Result<String>
     suspend fun getTaskList(id: Int): Result<TaskList>
     suspend fun getAllLists(): Result<List<TaskList>>
+    suspend fun getTodayList(): Result<List<Task>>
 
     suspend fun createTask(task: Task): Result<String>
     suspend fun updateTask(task: Task): Result<String>

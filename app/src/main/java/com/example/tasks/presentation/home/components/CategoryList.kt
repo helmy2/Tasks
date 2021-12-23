@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.example.tasks.domain.model.TaskList
 
@@ -19,8 +18,10 @@ import com.example.tasks.domain.model.TaskList
 fun CategoryList(
     list: List<TaskList>,
     onAddClicked: () -> Unit,
+    onListItemClick: (id: Int?) -> Unit
+
 ) {
-    Column(modifier = Modifier.padding(top = 32.dp)) {
+    Column(modifier = Modifier.padding(top = 16.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -39,7 +40,7 @@ fun CategoryList(
                 items(
                     list
                 ) {
-                    CategoryItem(taskList = it)
+                    CategoryItem(taskList = it,onListItemClick)
                 }
             }
         }

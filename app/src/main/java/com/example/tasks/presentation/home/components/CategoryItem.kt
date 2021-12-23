@@ -1,5 +1,6 @@
 package com.example.tasks.presentation.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -16,13 +17,13 @@ import com.example.tasks.presentation.util.toColor
 
 @Composable
 fun CategoryItem(
-    taskList: TaskList
+    taskList: TaskList,
+    onListItemClick: (id: Int?) -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(top = 16.dp, end = 16.dp),
+        modifier = Modifier.padding(top = 16.dp, end = 16.dp).clickable { onListItemClick(taskList.id) },
         shape = RoundedCornerShape(16.dp),
         elevation = 0.dp,
-        backgroundColor = taskList.color.toColor().copy(.35f),
     ) {
         Column(
             modifier = Modifier

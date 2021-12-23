@@ -9,7 +9,6 @@ import com.example.tasks.data.util.Result
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.repository.TaskRepo
 import com.example.tasks.domain.repository.UserRepo
-import com.example.tasks.util.Constants.BASE_URL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,37 +24,44 @@ class HomeViewModel @Inject constructor(
     val homeState: State<HomeState> = _homeState
 
     init {
-//        getAllLists()
-//        getTaskList()
-//        createTask()
-//        updateTask()
-//        deleteTask()
-//        createList()
-//        updateList()
-//        deleteList()
-
         getAllLists()
-
     }
 
     private fun getAllLists() = viewModelScope.launch {
         _homeState.value = HomeState(progress = true)
         val result = repo.getAllLists()
         val userResult = userRepo.getUser()
-        if (result is Result.Success && userResult is Result.Success)
+        val todayList = repo.getTodayList()
+        if (
+            result is Result.Success &&
+            userResult is Result.Success &&
+            todayList is Result.Success
+        )
             _homeState.value = HomeState(
                 list = result.data!!,
+                todayList = todayList.data!!,
                 userName = userResult.data!!.name!!,
                 logged = true
             )
         else
-            _homeState.value = HomeState(error = result.errorMessage)
+            _homeState.value = HomeState(
+                error = result.errorMessage,
+            )
     }
 
-    fun getTaskList(id: Int = 3) = viewModelScope.launch {
-        data.value = repo.getTaskList(id).data.toString()
+
+    fun updateTask(task: Task) = viewModelScope.launch {
+        val result = repo.updateTask(task)
+        if (result is Result.Success)
+            getAllLists()
     }
 
+
+    fun deleteTask(id: Int) = viewModelScope.launch {
+        val result = repo.deleteTask(id)
+        if (result is Result.Success)
+            getAllLists()
+    }
 
 
     fun updateList(
@@ -69,34 +75,6 @@ class HomeViewModel @Inject constructor(
         )
     ) = viewModelScope.launch {
         data.value = repo.updateList(list).data.toString()
-    }
-
-    fun deleteList(
-        id: Int = 4
-    ) = viewModelScope.launch {
-        data.value = repo.deleteList(id).data.toString()
-    }
-
-
-
-    fun updateTask(
-        task: Task = Task(
-            id = 4,
-            listId = 3,
-            false,
-            "First Updated Task",
-            "First Task description",
-            "Red",
-            5000
-        )
-    ) = viewModelScope.launch {
-        data.value = repo.updateTask(task).data.toString()
-    }
-
-    fun deleteTask(
-        id: Int = 6
-    ) = viewModelScope.launch {
-        data.value = repo.deleteTask(id).data.toString()
     }
 
 

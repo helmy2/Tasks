@@ -79,6 +79,16 @@ class TaskRepoImpl(
         Result.Error(e.message.toString())
     }
 
+    override suspend fun getTodayList(): Result<List<Task>> = try {
+        val token = sessionManager.getJwtToken() ?: ""
+        if (!isNetworkConnected(sessionManager.context)) {
+            Result.Error<List<Task>>("No Internet connection!")
+        }
+        Result.Success(tasksApi.getTodayList("Bearer $token"))
+    } catch (e: Exception) {
+        Result.Error(e.message.toString())
+    }
+
 
     override suspend fun createTask(task: Task): Result<String> = try {
         val token = sessionManager.getJwtToken() ?: ""

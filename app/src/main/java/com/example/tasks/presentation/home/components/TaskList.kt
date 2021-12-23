@@ -17,23 +17,15 @@ import com.example.tasks.domain.model.Task
 @Composable
 fun TaskListField(
     list: List<Task>,
-    onAddClicked: () -> Unit
+    onTaskItemClick: (task: Task) -> Unit,
+    onDeleteItemClick: (id: Int) -> Unit
 ) {
     Column(modifier = Modifier.padding(top = 32.dp)) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "TODAY'S TASKS", modifier = Modifier.padding(bottom = 8.dp))
-            IconButton(onClick = onAddClicked) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
-            }
-        }
+        Text(text = "TODAY'S TASKS", modifier = Modifier.padding(bottom = 8.dp))
         if (list.isNotEmpty()) {
             LazyColumn {
                 items(list) {
-                    TaskItem(task = it)
+                    TaskItem(task = it, onTaskItemClick, onDeleteItemClick)
                 }
             }
         }

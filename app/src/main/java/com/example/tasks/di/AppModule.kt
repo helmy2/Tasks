@@ -7,7 +7,7 @@ import com.example.tasks.data.repository.UserRepoImpl
 import com.example.tasks.domain.repository.TaskRepo
 import com.example.tasks.domain.repository.UserRepo
 import com.example.tasks.domain.util.SessionManager
-import com.example.tasks.util.Constants.BASE_URL
+import com.example.tasks.domain.util.Constants.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

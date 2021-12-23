@@ -1,4 +1,4 @@
-package com.example.tasks.util
+package com.example.tasks.domain.util
 
 import android.util.Log
 import java.text.SimpleDateFormat

@@ -74,6 +74,12 @@ interface TasksApi {
     ): List<TaskList>
 
     @Headers("Content-Type: application/json")
+    @GET("list/today")
+    suspend fun getTodayList(
+        @Header("Authorization") token: String
+    ): List<Task>
+
+    @Headers("Content-Type: application/json")
     @GET("list/tasks")
     suspend fun getTaskList(
         @Header("Authorization") token: String,

@@ -6,9 +6,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.tasks.util.Constants.EMAIL_KEY
-import com.example.tasks.util.Constants.JWT_TOKEN_KEY
-import com.example.tasks.util.Constants.NAME_KEY
+import com.example.tasks.domain.util.Constants.EMAIL_KEY
+import com.example.tasks.domain.util.Constants.JWT_TOKEN_KEY
+import com.example.tasks.domain.util.Constants.NAME_KEY
 import kotlinx.coroutines.flow.first
 
 

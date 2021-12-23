@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tasks.presentation.addList.AddListScreen
 import com.example.tasks.presentation.addTask.AddTaskScreen
 import com.example.tasks.presentation.home.HomeScreen
+import com.example.tasks.presentation.list.ListScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
 import com.example.tasks.presentation.theme.TasksTheme
@@ -29,22 +30,27 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         navController = navController,
                         startDestination = Screen.HomeScreen.route
-                    ){
-                        composable(Screen.LoginScreen.route){
+                    ) {
+                        composable(Screen.LoginScreen.route) {
                             LoginScreen(navController)
                         }
-                        composable(Screen.RegisterScreen.route){
+                        composable(Screen.RegisterScreen.route) {
                             RegisterScreen(navController)
                         }
-                        composable(Screen.HomeScreen.route){
+                        composable(Screen.HomeScreen.route) {
                             HomeScreen(navController)
                         }
-                        composable(Screen.AddListScreen.route){
+                        composable(Screen.AddListScreen.route) {
                             AddListScreen(navController)
                         }
-                        composable(Screen.AddTaskScreen.route){
+                        composable(Screen.AddTaskScreen.route) {
                             AddTaskScreen(navController)
                         }
+                        composable(Screen.ListScreen.route + "/{id}") {
+                            val id = it.arguments?.getString("id")!!.toInt()
+                            ListScreen(id, navController)
+                        }
+
                     }
                 }
             }
