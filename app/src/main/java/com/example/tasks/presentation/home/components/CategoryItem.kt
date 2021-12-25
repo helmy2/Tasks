@@ -18,10 +18,10 @@ import com.example.tasks.presentation.util.toColor
 @Composable
 fun CategoryItem(
     taskList: TaskList,
-    onListItemClick: (id: Int?) -> Unit
+    onListItemClick: (taskList: TaskList) -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(top = 16.dp, end = 16.dp).clickable { onListItemClick(taskList.id) },
+        modifier = Modifier.padding(top = 16.dp, end = 16.dp).clickable { onListItemClick(taskList) },
         shape = RoundedCornerShape(16.dp),
         elevation = 0.dp,
     ) {

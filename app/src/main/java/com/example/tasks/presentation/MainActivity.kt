@@ -9,10 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tasks.domain.model.Task
+import com.example.tasks.domain.model.TaskList
 import com.example.tasks.presentation.addList.AddListScreen
 import com.example.tasks.presentation.addTask.AddTaskScreen
 import com.example.tasks.presentation.home.HomeScreen
-import com.example.tasks.presentation.list.ListScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
 import com.example.tasks.presentation.theme.TasksTheme
@@ -41,26 +41,31 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.HomeScreen.route) {
                             HomeScreen(navController)
                         }
-                        composable(Screen.AddListScreen.route) {
-                            AddListScreen(navController)
+                        composable(Screen.AddListScreen.route + "/{taskList}") {
+                            val taskList =
+                                try {
+                                    Gson().fromJson(
+                                        it.arguments!!.getString("taskList")!!,
+                                        TaskList::class.java
+                                    )
+                                } catch (e: Exception) {
+                                    null
+                                }
+                            AddListScreen(navController,taskList)
                         }
                         composable(
-                            Screen.AddTaskScreen.route + "/{id}"
+                            Screen.AddTaskScreen.route + "/{task}"
                         ) {
                             val task =
                                 try {
                                     Gson().fromJson(
-                                        it.arguments!!.getString("id")!!,
+                                        it.arguments!!.getString("task")!!,
                                         Task::class.java
                                     )
                                 } catch (e: Exception) {
                                     null
                                 }
                             AddTaskScreen(task, navController)
-                        }
-                        composable(Screen.ListScreen.route + "/{id}") {
-                            val id = it.arguments?.getString("id")!!.toInt()
-                            ListScreen(id, navController)
                         }
                     }
                 }

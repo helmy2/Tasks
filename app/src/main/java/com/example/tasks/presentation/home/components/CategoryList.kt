@@ -18,7 +18,7 @@ import com.example.tasks.domain.model.TaskList
 fun CategoryList(
     list: List<TaskList>,
     onAddClicked: () -> Unit,
-    onListItemClick: (id: Int?) -> Unit
+    onListItemClick: (taskList: TaskList) -> Unit
 
 ) {
     Column(modifier = Modifier.padding(top = 16.dp)) {

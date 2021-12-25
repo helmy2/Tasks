@@ -5,6 +5,5 @@ data class TaskList(
     val title: String,
     val description: String,
     val color: String,
-    val date: Long,
     var list: List<Task>? = null
 )

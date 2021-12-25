@@ -37,10 +37,10 @@ fun HomeScreen(
                     navController.navigate(Screen.LoginScreen.route)
                 },
                 onAddListClicked = {
-                    navController.navigate(Screen.AddListScreen.route)
+                    navController.navigate(Screen.AddListScreen.route + "/-1")
                 },
                 onAddTaskClicked = {
-                    navController.navigate(Screen.AddTaskScreen.route +  "/-1")
+                    navController.navigate(Screen.AddTaskScreen.route + "/-1")
                 },
                 onAddTaskItemClick = {
                     viewModel.updateTask(it.copy(done = !it.done))
@@ -49,13 +49,17 @@ fun HomeScreen(
                     viewModel.deleteTask(it)
                 },
                 onListItemClick = {
-                    navController.navigate(Screen.ListScreen.route + "/$it")
+                    val string = Gson().toJson(it)
+                    navController.navigate(Screen.AddListScreen.route + "/$string")
                 },
                 onTaskItemClick = {
-                    val taskString = Gson().toJson(it)
-                    navController.navigate(Screen.AddTaskScreen.route + "/$taskString")
+                    val string = Gson().toJson(it)
+                    navController.navigate(Screen.AddTaskScreen.route + "/$string")
                 }
             )
+            !viewModel.isNetworkConnected.value -> {
+                Text(text = "You are offline", style = MaterialTheme.typography.h4)
+            }
             else -> {
                 Text(text = "You aren't logged in", style = MaterialTheme.typography.h4)
                 Spacer(modifier = Modifier.height(16.dp))

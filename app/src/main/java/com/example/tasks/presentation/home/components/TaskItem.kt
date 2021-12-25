@@ -22,20 +22,11 @@ fun TaskItem(
     onTaskItemClick: (task:Task) -> Unit
 ) {
 
-//    var openDialog by remember { mutableStateOf(false) }
-//
-//    if (openDialog) {
-//        Dialog(onDismissRequest = { openDialog = false }) {
-//            TaskScreen(task = task, { openDialog = false })
-//        }
-//    }
-
     Card(
         modifier = Modifier
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .clickable {
-//                openDialog = true
                        onTaskItemClick(task)
             },
         shape = RoundedCornerShape(16.dp),

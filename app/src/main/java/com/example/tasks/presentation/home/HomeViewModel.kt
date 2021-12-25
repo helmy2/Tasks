@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tasks.domain.model.TaskList
 import com.example.tasks.data.util.Result
+import com.example.tasks.data.util.isNetworkConnected
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.repository.TaskRepo
 import com.example.tasks.domain.repository.UserRepo
+import com.example.tasks.domain.util.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,11 +19,14 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repo: TaskRepo,
     private val userRepo: UserRepo,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     val data = mutableStateOf("started")
     private val _homeState = mutableStateOf(HomeState())
     val homeState: State<HomeState> = _homeState
+
+    val isNetworkConnected = mutableStateOf(isNetworkConnected(sessionManager.context))
 
     init {
         getAllLists()
@@ -62,5 +67,7 @@ class HomeViewModel @Inject constructor(
         if (result is Result.Success)
             getAllLists()
     }
+
+
 }
 

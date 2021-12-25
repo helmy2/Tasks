@@ -23,7 +23,7 @@ fun HomeField(
     onAddTaskClicked: () -> Unit,
     onAddTaskItemClick: (task: Task) -> Unit,
     onDeleteTaskItemClick: (id: Int) -> Unit,
-    onListItemClick: (id: Int?) -> Unit,
+    onListItemClick: (taskList:TaskList) -> Unit,
     onTaskItemClick:(task:Task) -> Unit
 ) {
     Box {
