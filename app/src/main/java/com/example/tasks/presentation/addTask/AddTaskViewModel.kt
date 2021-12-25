@@ -41,17 +41,19 @@ class AddTaskViewModel @Inject constructor(
     ) = viewModelScope.launch {
         val result = taskRepo.createTask(
             Task(
-                null,
-                listId,
-                false,
-                title,
-                description,
-                "",
-                date
+                id = null,
+                listId = listId,
+                done = false,
+                title = title,
+                description = description,
+                color = "",
+                date = date
             )
         )
         if (result is Result.Success)
             navController.navigate(Screen.HomeScreen.route)
     }
+
+
 
 }

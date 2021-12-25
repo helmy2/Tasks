@@ -1,6 +1,7 @@
 package com.example.tasks.di
 
 import android.content.Context
+import androidx.navigation.compose.rememberNavController
 import com.example.tasks.data.remote.TasksApi
 import com.example.tasks.data.repository.TaskRepoImpl
 import com.example.tasks.data.repository.UserRepoImpl
@@ -29,7 +30,6 @@ object AppModule {
     @Singleton
     @Provides
     fun provideGson() = Gson()
-
 
     @Singleton
     @Provides
@@ -70,4 +70,5 @@ object AppModule {
     @Provides
     fun provideTaskRepo(tasksApi: TasksApi, sessionManager: SessionManager): TaskRepo =
         TaskRepoImpl(tasksApi, sessionManager)
+
 }

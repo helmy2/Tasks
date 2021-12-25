@@ -7,7 +7,6 @@ import com.example.tasks.domain.model.Task
 interface TaskRepo {
 
     suspend fun createList(list: TaskList): Result<String>
-    suspend fun updateList(list: TaskList): Result<String>
     suspend fun deleteList(id: Int): Result<String>
     suspend fun getTaskList(id: Int): Result<TaskList>
     suspend fun getAllLists(): Result<List<TaskList>>

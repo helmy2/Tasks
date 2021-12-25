@@ -8,9 +8,9 @@ import com.example.tasks.presentation.addTask.components.AddTaskField
 
 @Composable
 fun AddTaskScreen(
-    navController: NavHostController, viewModel: AddTaskViewModel = hiltViewModel()
+    navController: NavHostController,
+    viewModel: AddTaskViewModel = hiltViewModel()
 ) {
-
     val listState = remember { viewModel.listState }
 
     AddTaskField(navController, listState.value) { taskName, taskDescription, selectedId, date ->

@@ -62,21 +62,5 @@ class HomeViewModel @Inject constructor(
         if (result is Result.Success)
             getAllLists()
     }
-
-
-    fun updateList(
-        list: TaskList = TaskList(
-            id = 5,
-            title = "first updated list title",
-            description = "first description",
-            color = "RED",
-            date = 500,
-            list = null
-        )
-    ) = viewModelScope.launch {
-        data.value = repo.updateList(list).data.toString()
-    }
-
-
 }
 

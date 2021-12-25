@@ -28,21 +28,6 @@ class TaskRepoImpl(
         Result.Error(e.message.toString())
     }
 
-    override suspend fun updateList(list: TaskList): Result<String> = try {
-        val token = sessionManager.getJwtToken() ?: ""
-        if (!isNetworkConnected(sessionManager.context)) {
-            Result.Error<String>("No Internet connection!")
-        }
-        val result = tasksApi.updateList("Bearer $token", list)
-        if (result.success) {
-            Result.Success(result.message)
-        } else {
-            Result.Error(result.message)
-        }
-    } catch (e: Exception) {
-        Result.Error(e.message.toString())
-    }
-
     override suspend fun deleteList(id: Int): Result<String> = try {
         val token = sessionManager.getJwtToken() ?: ""
         if (!isNetworkConnected(sessionManager.context)) {
