@@ -21,9 +21,10 @@ fun HomeField(
     onProfileClicked: () -> Unit,
     onAddListClicked: () -> Unit,
     onAddTaskClicked: () -> Unit,
-    onCheckTaskItemClick: (task: Task) -> Unit,
+    onAddTaskItemClick: (task: Task) -> Unit,
     onDeleteTaskItemClick: (id: Int) -> Unit,
-    onListItemClick: (id: Int?) -> Unit
+    onListItemClick: (id: Int?) -> Unit,
+    onTaskItemClick:(task:Task) -> Unit
 ) {
     Box {
         Column(
@@ -34,7 +35,7 @@ fun HomeField(
         ) {
             NameField(name, onClick = onProfileClicked)
             CategoryList(list, onAddClicked = onAddListClicked, onListItemClick = onListItemClick)
-            TaskListField(todayList, onCheckTaskItemClick, onDeleteTaskItemClick)
+            TaskListField(todayList, onAddTaskItemClick, onDeleteTaskItemClick,onTaskItemClick)
         }
         FloatingActionButton(
             onClick = onAddTaskClicked, contentColor = Color.White, modifier = Modifier

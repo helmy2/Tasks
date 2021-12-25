@@ -2,7 +2,7 @@ package com.example.tasks.presentation.addTask.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.model.TaskList
 import com.example.tasks.presentation.util.toColor
 import com.example.tasks.domain.util.getCurrentDate
@@ -25,16 +26,17 @@ import com.example.tasks.domain.util.getCurrentDate
 @Composable
 fun AddTaskField(
     navController: NavHostController,
+    task: Task?,
     list: List<TaskList>,
     onItemClick: (taskName: String, taskDescription: String, selectedId: Int, date: Long) -> Unit,
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
-    var taskName by remember { mutableStateOf("") }
-    var taskDescription by remember { mutableStateOf("") }
-    var selectedId by remember { mutableStateOf(0) }
-    var date by remember { mutableStateOf(getCurrentDate()) }
+    var taskName by remember { mutableStateOf(task?.title ?: "") }
+    var taskDescription by remember { mutableStateOf(task?.description ?:"") }
+    var selectedIndex by remember { mutableStateOf(0) }
+    var date by remember { mutableStateOf(task?.date ?: getCurrentDate()) }
 
     Column(
         Modifier
@@ -82,25 +84,25 @@ fun AddTaskField(
         )
 
         LazyRow {
-            items(list) {
+            itemsIndexed(list) { index, task ->
                 TextButton(
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = if (it.id == selectedId) it.color.toColor() else it.color.toColor()
+                        backgroundColor = if (index == selectedIndex) task.color.toColor() else task.color.toColor()
                             .copy(alpha = .3f)
                     ),
                     onClick = {
-                        selectedId = it.id!!
+                        selectedIndex = index
                     },
                     modifier = Modifier.padding(horizontal = 8.dp)
                 ) {
-                    Text(text = it.title)
+                    Text(text = task.title)
                 }
             }
         }
-        DateField(context, onDateChange = { date = it })
+        DateField(context, onDateChange = { date = it },currantDate = date)
         Button(onClick = {
-            onItemClick(taskName, taskDescription, selectedId, date)
+            onItemClick(taskName, taskDescription, list[selectedIndex].id!!, date)
         }) {
             Text(text = "Save")
         }

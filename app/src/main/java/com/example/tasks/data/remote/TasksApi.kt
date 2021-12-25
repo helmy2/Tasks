@@ -24,13 +24,6 @@ interface TasksApi {
     ////////////////////// task /////////////////////
 
     @Headers("Content-Type: application/json")
-    @POST("tasks/create")
-    suspend fun createTask(
-        @Header("Authorization") token: String,
-        @Body task: Task
-    ): Response
-
-    @Headers("Content-Type: application/json")
     @POST("tasks/update")
     suspend fun updateTask(
         @Header("Authorization") token: String,
@@ -43,6 +36,13 @@ interface TasksApi {
         @Header("Authorization") token: String,
         @Query("id") id: Int
     ): Response
+
+    @Headers("Content-Type: application/json")
+    @GET("tasks")
+    suspend fun getTask(
+        @Header("Authorization") token: String,
+        @Query("id") id: Int
+    ): Task
 
     ////////////////////// list /////////////////////
 
@@ -85,5 +85,6 @@ interface TasksApi {
         @Header("Authorization") token: String,
         @Query("id") id: Int
     ): TaskList
+
 
 }

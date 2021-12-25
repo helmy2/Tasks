@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import com.example.tasks.domain.util.convertLongToTime
 import com.example.tasks.presentation.home.components.TaskItem
 import com.example.tasks.presentation.util.Screen
+import com.google.gson.Gson
 
 @Composable
 fun ListScreen(
@@ -41,6 +42,7 @@ fun ListScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     )
+
     {
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -67,7 +69,7 @@ fun ListScreen(
                     .clip(CircleShape)
                     .background(MaterialTheme.colors.surface),
                 onClick = {
-                    viewModel.deleteList(id,navController)
+                    viewModel.deleteList(id, navController)
                 }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
@@ -98,6 +100,9 @@ fun ListScreen(
                                 viewModel.updateTask(task.copy(done = !task.done))
                             }, onDeleteItemClick = { id ->
                                 viewModel.deleteTask(id)
+                            }, onTaskItemClick = { task ->
+                                val taskString = Gson().toJson(task)
+                                navController.navigate(Screen.AddTaskScreen.route + "/${taskString}")
                             })
                         }
                     }

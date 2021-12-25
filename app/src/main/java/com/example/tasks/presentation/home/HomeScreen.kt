@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.tasks.presentation.home.components.HomeField
 import com.example.tasks.presentation.util.Screen
+import com.google.gson.Gson
 
 @Composable
 fun HomeScreen(
@@ -39,9 +40,9 @@ fun HomeScreen(
                     navController.navigate(Screen.AddListScreen.route)
                 },
                 onAddTaskClicked = {
-                    navController.navigate(Screen.AddTaskScreen.route)
+                    navController.navigate(Screen.AddTaskScreen.route +  "/-1")
                 },
-                onCheckTaskItemClick = {
+                onAddTaskItemClick = {
                     viewModel.updateTask(it.copy(done = !it.done))
                 },
                 onDeleteTaskItemClick = {
@@ -49,6 +50,10 @@ fun HomeScreen(
                 },
                 onListItemClick = {
                     navController.navigate(Screen.ListScreen.route + "/$it")
+                },
+                onTaskItemClick = {
+                    val taskString = Gson().toJson(it)
+                    navController.navigate(Screen.AddTaskScreen.route + "/$taskString")
                 }
             )
             else -> {

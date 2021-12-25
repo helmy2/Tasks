@@ -13,8 +13,9 @@ import com.example.tasks.domain.util.convertLongToTime
 import java.util.*
 
 @Composable
-fun DateField(context: Context, onDateChange: (date: Long) -> Unit) {
+fun DateField(context: Context, onDateChange: (date: Long) -> Unit, currantDate: Long) {
     val now = Calendar.getInstance()
+    now.timeInMillis = currantDate
 
     val date = remember { mutableStateOf(now.timeInMillis.convertLongToTime()) }
 

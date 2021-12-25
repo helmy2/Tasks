@@ -33,15 +33,16 @@ class AddTaskViewModel @Inject constructor(
     }
 
     fun createTask(
+        id: Int?,
         title: String,
         description: String,
         listId: Int,
         date: Long,
         navController: NavHostController,
     ) = viewModelScope.launch {
-        val result = taskRepo.createTask(
+        val result = taskRepo.updateTask(
             Task(
-                id = null,
+                id = id,
                 listId = listId,
                 done = false,
                 title = title,
@@ -53,7 +54,6 @@ class AddTaskViewModel @Inject constructor(
         if (result is Result.Success)
             navController.navigate(Screen.HomeScreen.route)
     }
-
 
 
 }

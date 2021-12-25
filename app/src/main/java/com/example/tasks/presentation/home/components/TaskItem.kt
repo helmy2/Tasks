@@ -6,37 +6,37 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.example.tasks.domain.model.Task
-import com.example.tasks.presentation.task.TaskScreen
 import com.example.tasks.presentation.util.toColor
 
 @Composable
 fun TaskItem(
     task: Task,
     onCheckItemClick: (task: Task) -> Unit,
-    onDeleteItemClick: (id: Int) -> Unit
+    onDeleteItemClick: (id: Int) -> Unit,
+    onTaskItemClick: (task:Task) -> Unit
 ) {
 
-    var openDialog by remember { mutableStateOf(false) }
-
-    if (openDialog) {
-        Dialog(onDismissRequest = { openDialog = false }) {
-            TaskScreen(task = task, { openDialog = false })
-        }
-    }
+//    var openDialog by remember { mutableStateOf(false) }
+//
+//    if (openDialog) {
+//        Dialog(onDismissRequest = { openDialog = false }) {
+//            TaskScreen(task = task, { openDialog = false })
+//        }
+//    }
 
     Card(
         modifier = Modifier
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .clickable {
-                openDialog = true
+//                openDialog = true
+                       onTaskItemClick(task)
             },
         shape = RoundedCornerShape(16.dp),
         elevation = 0.dp,
