@@ -1,4 +1,4 @@
-package com.example.tasks.presentation.addTask
+package com.example.tasks.presentation.task
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +51,12 @@ class AddTaskViewModel @Inject constructor(
                 date = date
             )
         )
+        if (result is Result.Success)
+            navController.navigate(Screen.HomeScreen.route)
+    }
+
+    fun deleteTask(id: Int, navController: NavHostController) = viewModelScope.launch {
+        val result = taskRepo.deleteTask(id)
         if (result is Result.Success)
             navController.navigate(Screen.HomeScreen.route)
     }

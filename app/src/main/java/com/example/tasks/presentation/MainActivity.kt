@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.model.TaskList
-import com.example.tasks.presentation.addList.AddListScreen
-import com.example.tasks.presentation.addTask.AddTaskScreen
+import com.example.tasks.presentation.taskList.AddListScreen
+import com.example.tasks.presentation.task.AddTaskScreen
 import com.example.tasks.presentation.home.HomeScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                                 } catch (e: Exception) {
                                     null
                                 }
-                            AddListScreen(navController,taskList)
+                            AddListScreen(navController, taskList)
                         }
                         composable(
                             Screen.AddTaskScreen.route + "/{task}"

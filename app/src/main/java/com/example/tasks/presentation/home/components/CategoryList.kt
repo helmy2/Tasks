@@ -17,30 +17,17 @@ import com.example.tasks.domain.model.TaskList
 @Composable
 fun CategoryList(
     list: List<TaskList>,
-    onAddClicked: () -> Unit,
     onListItemClick: (taskList: TaskList) -> Unit
 
 ) {
     Column(modifier = Modifier.padding(top = 16.dp)) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "CATEGORIES")
-            IconButton(onClick = onAddClicked) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add",
-                )
-            }
-        }
+        Text(text = "CATEGORIES", modifier = Modifier.fillMaxWidth())
         if (list.isNotEmpty()) {
             LazyRow {
                 items(
                     list
                 ) {
-                    CategoryItem(taskList = it,onListItemClick)
+                    CategoryItem(taskList = it, onListItemClick)
                 }
             }
         }

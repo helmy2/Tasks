@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.tasks.domain.model.TaskList
 import com.example.tasks.presentation.util.toColor
@@ -21,8 +22,10 @@ fun CategoryItem(
     onListItemClick: (taskList: TaskList) -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(top = 16.dp, end = 16.dp).clickable { onListItemClick(taskList) },
-        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .padding(top = 16.dp, end = 16.dp)
+            .clip(RoundedCornerShape(20))
+            .clickable { onListItemClick(taskList) },
         elevation = 0.dp,
     ) {
         Column(

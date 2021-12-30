@@ -1,4 +1,4 @@
-package com.example.tasks.presentation.addTask.components
+package com.example.tasks.presentation.task.components
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -6,19 +6,14 @@ import android.content.Context
 import android.widget.DatePicker
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tasks.domain.util.convertLongToTime
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,14 +1,11 @@
-package com.example.tasks.presentation.addTask
+package com.example.tasks.presentation.task
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.tasks.domain.model.Task
-import com.example.tasks.presentation.addTask.components.AddTaskField
+import com.example.tasks.presentation.task.components.AddTaskField
 
 @Composable
 fun AddTaskScreen(
@@ -18,22 +15,24 @@ fun AddTaskScreen(
 ) {
     val listState = remember { viewModel.listState }
 
-    Column {
-        AddTaskField(
-            navController,
-            task = task,
-            listState.value,
-        ) { taskName, taskDescription, selectedId, date ->
+    AddTaskField(
+        navController,
+        task = task,
+        listState.value,
+        onItemClick = { id, taskName, taskDescription, selectedId, date ->
             viewModel.createTask(
-                task?.id,
+                id,
                 taskName,
                 taskDescription,
                 selectedId,
                 date,
                 navController
             )
-        }
-    }
 
+        },
+        onItemDeletedClick = {
+            viewModel.deleteTask(it,navController)
+        }
+    )
 }
 

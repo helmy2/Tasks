@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.tasks.domain.model.Task
@@ -19,20 +20,25 @@ fun TaskItem(
     task: Task,
     onCheckItemClick: (task: Task) -> Unit,
     onDeleteItemClick: (id: Int) -> Unit,
-    onTaskItemClick: (task:Task) -> Unit
+    onTaskItemClick: (task: Task) -> Unit
 ) {
 
     Card(
         modifier = Modifier
             .padding(vertical = 8.dp)
             .fillMaxWidth()
+            .clip(RoundedCornerShape(20))
             .clickable {
-                       onTaskItemClick(task)
+                onTaskItemClick(task)
             },
-        shape = RoundedCornerShape(16.dp),
         elevation = 0.dp,
     ) {
-        Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             RadioButton(
                 selected = task.done,
                 onClick = { onCheckItemClick(task) },

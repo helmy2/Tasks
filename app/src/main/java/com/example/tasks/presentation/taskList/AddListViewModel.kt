@@ -1,4 +1,4 @@
-package com.example.tasks.presentation.addList
+package com.example.tasks.presentation.taskList
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -10,7 +10,6 @@ import com.example.tasks.data.util.Result
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.model.TaskList
 import com.example.tasks.domain.repository.TaskRepo
-import com.example.tasks.presentation.util.ListColor
 import com.example.tasks.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -37,20 +36,10 @@ class AddListViewModel @Inject constructor(
     }
 
     fun createList(
-        title: String,
-        description: String,
-        color: ListColor,
+        taskList: TaskList,
         navController: NavHostController,
     ) = viewModelScope.launch {
-        val result = taskRepo.createList(
-            TaskList(
-                id = null,
-                title = title,
-                description = description,
-                color = color.name,
-                list = null
-            )
-        )
+        val result = taskRepo.createList(taskList)
         if( result is Result.Success)
             navController.navigate(Screen.HomeScreen.route)
     }
@@ -71,5 +60,14 @@ class AddListViewModel @Inject constructor(
     fun setCurrentId(id: Int){
         currentId.value = id
         getTaskList(id)
+    }
+
+    fun deleteList(
+        id: Int,
+        navController: NavHostController,
+    )= viewModelScope.launch {
+        val result = taskRepo.deleteList(id)
+        if (result is Result.Success)
+            navController.navigate(Screen.HomeScreen.route)
     }
 }
