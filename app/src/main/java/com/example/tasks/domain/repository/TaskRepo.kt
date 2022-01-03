@@ -15,4 +15,5 @@ interface TaskRepo {
     suspend fun getTask(id: Int): Result<Task>
     suspend fun updateTask(task: Task): Result<String>
     suspend fun deleteTask(id: Int): Result<String>
+    suspend fun search(text: String): Result<List<TaskList>>
 }

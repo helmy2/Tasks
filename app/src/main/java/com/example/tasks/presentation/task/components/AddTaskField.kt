@@ -37,7 +37,7 @@ fun AddTaskField(
     var selectedIndex by remember { mutableStateOf(0) }
     var date by remember { mutableStateOf(task?.date ?: getCurrentDate()) }
 
-    LaunchedEffect(key1 = true) {
+    SideEffect {
         if (list.isNotEmpty() && task != null)
             selectedIndex = list.indexOfFirst { it.id == task.listId }
     }

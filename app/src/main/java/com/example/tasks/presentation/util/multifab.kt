@@ -28,43 +28,54 @@ fun MultiFloatingActionButton(
         horizontalAlignment = Alignment.End,
         modifier = modifier.padding(16.dp)
     ) {
-        AnimatedVisibility(
-            visible = expanded,
-            enter = slideInVertically() + expandVertically() + fadeIn(),
-            exit = slideOutVertically() + shrinkVertically() + fadeOut(),
-        ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, end = 4.dp)
+        if (list.size > 1) {
+            AnimatedVisibility(
+                visible = expanded,
+                enter = slideInVertically() + expandVertically() + fadeIn(),
+                exit = slideOutVertically() + shrinkVertically() + fadeOut(),
             ) {
-                list.forEach {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = it.title)
-                        FloatingActionButton(
-                            onClick = it.onItemClick,
-                            modifier = Modifier.size((56 * .9f).dp)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.End,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, end = 4.dp)
+                ) {
+                    list.forEach {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = it.imageVector,
-                                contentDescription = it.title
-                            )
+                            Text(text = it.title)
+                            FloatingActionButton(
+                                onClick = it.onItemClick,
+                                modifier = Modifier.size((56 * .9f).dp)
+                            ) {
+                                Icon(
+                                    imageVector = it.imageVector,
+                                    contentDescription = it.title
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
-        FloatingActionButton(onClick = { expanded = !expanded }) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "",
-                modifier = Modifier.rotate(rotate)
-            )
-        }
+            FloatingActionButton(onClick = { expanded = !expanded }) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "",
+                    modifier = Modifier.rotate(rotate)
+                )
+            }
+        } else
+            FloatingActionButton(
+                onClick = list.first().onItemClick,
+            ) {
+                Icon(
+                    imageVector = list.first().imageVector,
+                    contentDescription = list.first().title
+                )
+            }
     }
+
 }
 
 data class FABItem(

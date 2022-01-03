@@ -15,7 +15,7 @@ import com.example.tasks.domain.model.TaskList
 import com.example.tasks.presentation.util.toColor
 
 @Composable
- fun DropdownField(
+fun DropdownField(
     list: List<TaskList>,
     selectedIndex: Int,
     onItemClick: (index: Int) -> Unit,
@@ -46,15 +46,14 @@ import com.example.tasks.presentation.util.toColor
                         onItemClick(index)
                         expanded = false
                     }) {
-                        Row(modifier = Modifier.padding(8.dp)) {
-                            Icon(
-                                imageVector = Icons.Default.List,
-                                contentDescription = "",
-                                tint = taskList.color.toColor().copy(alpha = .9f)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(taskList.title)
-                        }
+                        Icon(
+                            imageVector = Icons.Default.List,
+                            contentDescription = "",
+                            tint = taskList.color.toColor().copy(alpha = .9f)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(taskList.title, maxLines = 1)
+
                     }
                 }
             }

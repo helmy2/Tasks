@@ -30,29 +30,27 @@ class HomeViewModel @Inject constructor(
     val userState: MutableState<User> = mutableStateOf(User("", "", ""))
 
     val errorState: MutableState<String> = mutableStateOf("")
-    val loggedInState: MutableState<Boolean> = mutableStateOf(false)
+    val loggedInState: MutableState<Boolean> = mutableStateOf(true)
     val progressState: MutableState<Boolean> = mutableStateOf(false)
     val onlineState: MutableState<Boolean> =
         mutableStateOf(isNetworkConnected(sessionManager.context))
 
     init {
+        getUser()
         if (onlineState.value) {
-            getUser()
             getList()
             getTodayList()
         }
     }
 
     private fun getUser() = viewModelScope.launch {
-        progressState.value = true
-        delay(200L)
         val result = userRepo.getUser()
         if (result is Result.Success) {
             userState.value = result.data!!
             loggedInState.value = true
-            progressState.value = false
-        } else
-            errorState.value = result.errorMessage!!
+        } else {
+            loggedInState.value = false
+        }
     }
 
 

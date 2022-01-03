@@ -86,5 +86,12 @@ interface TasksApi {
         @Query("id") id: Int
     ): TaskList
 
+    @Headers("Content-Type: application/json")
+    @GET("tasks/search")
+    suspend fun search(
+        @Header("Authorization") token: String,
+        @Query("title") text: String
+    ): List<TaskList>
+
 
 }

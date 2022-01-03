@@ -1,16 +1,21 @@
 package com.example.tasks.presentation.home
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
+import androidx.compose.runtime.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.tasks.presentation.home.components.HomeField
@@ -30,9 +35,14 @@ fun HomeScreen(
     val progress = viewModel.progressState.value
     val online = viewModel.onlineState.value
 
+    LaunchedEffect(key1 = logged) {
+        if (!logged)
+            navController.navigate(Screen.LoginScreen.route)
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
-        if (error.isNotEmpty())
-            Toast.makeText(LocalContext.current, error, Toast.LENGTH_SHORT).show()
+//        if (error.isNotEmpty())
+//            Toast.makeText(LocalContext.current, error, Toast.LENGTH_SHORT).show()
         if (progress)
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         else
@@ -42,45 +52,41 @@ fun HomeScreen(
                     style = MaterialTheme.typography.h4,
                     modifier = Modifier.align(Alignment.Center)
                 )
-            } else {
-                if (!logged) {
-                    Column(modifier = Modifier.align(Alignment.Center)) {
-                        Text(text = "You aren't logged in", style = MaterialTheme.typography.h4)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = { navController.navigate(Screen.LoginScreen.route) }) {
-                            Text(text = "Sign In")
-                        }
+            } else if (logged) {
+                HomeField(
+                    user.name!!,
+                    list,
+                    todayList,
+                    onProfileClicked = {
+                        navController.navigate(Screen.LoginScreen.route)
+                    },
+                    onAddListClicked = {
+                        navController.navigate(Screen.AddListScreen.route + "/-1")
+                    },
+                    onAddTaskClicked = {
+                        navController.navigate(Screen.AddTaskScreen.route + "/-1")
+                    },
+                    onAddTaskItemClick = {
+                        viewModel.updateTask(it.copy(done = !it.done))
+                    },
+                    onDeleteTaskItemClick = {
+                        viewModel.deleteTask(it)
+                    },
+                    onListItemClick = {
+                        val string = Gson().toJson(it)
+                        navController.navigate(Screen.AddListScreen.route + "/$string")
+                    },
+                    onTaskItemClick = {
+                        val string = Gson().toJson(it)
+                        navController.navigate(Screen.AddTaskScreen.route + "/$string")
+                    },
+                    onSearchClick = {
+                        navController.navigate(Screen.SearchScreen.route )
                     }
-                } else {
-                    HomeField(
-                        user.name!!,
-                        list,
-                        todayList,
-                        onProfileClicked = {
-                            navController.navigate(Screen.LoginScreen.route)
-                        },
-                        onAddListClicked = {
-                            navController.navigate(Screen.AddListScreen.route + "/-1")
-                        },
-                        onAddTaskClicked = {
-                            navController.navigate(Screen.AddTaskScreen.route + "/-1")
-                        },
-                        onAddTaskItemClick = {
-                            viewModel.updateTask(it.copy(done = !it.done))
-                        },
-                        onDeleteTaskItemClick = {
-                            viewModel.deleteTask(it)
-                        },
-                        onListItemClick = {
-                            val string = Gson().toJson(it)
-                            navController.navigate(Screen.AddListScreen.route + "/$string")
-                        },
-                        onTaskItemClick = {
-                            val string = Gson().toJson(it)
-                            navController.navigate(Screen.AddTaskScreen.route + "/$string")
-                        }
-                    )
-                }
+
+                )
             }
     }
 }
+
+

@@ -1,17 +1,12 @@
 package com.example.tasks.presentation.home.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Task
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.tasks.domain.model.TaskList
 import com.example.tasks.domain.model.Task
@@ -29,10 +24,14 @@ fun HomeField(
     onAddTaskItemClick: (task: Task) -> Unit,
     onDeleteTaskItemClick: (id: Int) -> Unit,
     onListItemClick: (taskList: TaskList) -> Unit,
-    onTaskItemClick: (task: Task) -> Unit
+    onTaskItemClick: (task: Task) -> Unit,
+    onSearchClick: () -> Unit,
 ) {
 
     Scaffold(
+        topBar = {
+            HomeTopBar(onImageClick = onProfileClicked,onSearchClick)
+        },
         floatingActionButton = {
             MultiFloatingActionButton(
                 list = listOf(
@@ -48,11 +47,9 @@ fun HomeField(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .padding(start = 8.dp, end = 8.dp, top = 16.dp)
+                .padding(start = 24.dp, end = 24.dp)
         ) {
-            NameField(name, onClick = onProfileClicked)
-            CategoryList(list,  onListItemClick = onListItemClick)
+            CategoryList(list, onListItemClick = onListItemClick)
             TaskListField(todayList, onAddTaskItemClick, onDeleteTaskItemClick, onTaskItemClick)
         }
     }

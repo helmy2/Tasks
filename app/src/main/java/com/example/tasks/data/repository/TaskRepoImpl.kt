@@ -113,4 +113,14 @@ class TaskRepoImpl(
     } catch (e: Exception) {
         Result.Error(e.message.toString())
     }
+
+    override suspend fun search(text: String): Result<List<TaskList>> = try {
+        val token = sessionManager.getJwtToken() ?: ""
+        if (!isNetworkConnected(sessionManager.context)) {
+            Result.Error<List<TaskList>>("No Internet connection!")
+        }
+        Result.Success(tasksApi.search("Bearer $token",text))
+    } catch (e: Exception) {
+        Result.Error(e.message.toString())
+    }
 }

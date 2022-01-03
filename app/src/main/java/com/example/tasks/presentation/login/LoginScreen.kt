@@ -22,7 +22,7 @@ fun LoginScreen(
     val context = LocalContext.current
 
     Box {
-        BackButton { viewModel.onEvent(LoginEvent.RequestBack(navController)) }
+//        BackButton { viewModel.onEvent(LoginEvent.RequestBack(navController)) }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,

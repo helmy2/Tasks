@@ -10,11 +10,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tasks.domain.model.Task
 import com.example.tasks.domain.model.TaskList
+import com.example.tasks.domain.repository.UserRepo
 import com.example.tasks.presentation.taskList.AddListScreen
 import com.example.tasks.presentation.task.AddTaskScreen
 import com.example.tasks.presentation.home.HomeScreen
 import com.example.tasks.presentation.login.LoginScreen
 import com.example.tasks.presentation.register.RegisterScreen
+import com.example.tasks.presentation.search.SearchScreen
 import com.example.tasks.presentation.theme.TasksTheme
 import com.example.tasks.presentation.util.Screen
 import com.google.gson.Gson
@@ -40,6 +42,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.HomeScreen.route) {
                             HomeScreen(navController)
+
+                        }
+                        composable(Screen.SearchScreen.route) {
+                            SearchScreen(navController)
                         }
                         composable(Screen.AddListScreen.route + "/{taskList}") {
                             val taskList =
